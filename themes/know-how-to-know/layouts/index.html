@@ -1,9 +1,44 @@
 {{ define "main" }}
-  <ul>
-    {{ range .RegularPages }}
-      <li>
-        <a href="{{ .Permalink }}">{{ .Title }}</a>
-      </li>
+    <h2 class="font-bold p-3 border-b m-3">
+      {{ .Title }} 記事
+    </h2>
+    {{ $burl := .Site.BaseURL }}
+    {{ $paginator := .Paginate (where .Site.RegularPages "Section" "posts").Reverse 5 }}
+    {{ with $paginator }}{{ range $paginator.Pages }}
+      <article class="p-3 m-3">
+        <a href="{{ .Permalink }}">
+          <h3 class="font-bold text-xl border-b pb-1 mb-1">
+            {{ .Title }}
+            <span class="font-normal"> 
+              {{ .Date.Format "2006-01-02" }}
+            </span>
+          </h3>
+        </a>
+        <section class="prose">
+          {{ .Content }}
+        </section>
+        <section>
+          タグ: 
+          {{- range $termName := .Params.tags }}
+            <a href="{{ "/tags/" | relLangURL }}{{ $termName | urlize
+                }}">{{ $termName }}</a>
+            {{- end }}
+        </section>
+      </article>
+    {{ with $paginator.HasPrev }}
+    <div class="flex min-h-[20%] w-5/12 border border-zinc-900	 rounded flex-col justify-start items-stretch p-1 m-1">
+        <a href="{{ $burl }}{{ $paginator.Prev.URL }}">
+          <strong>Prev</strong>
+        </a>
+    </div>
     {{ end }}
-  </ul>
+    {{ with $paginator.HasNext }}
+      <div class="flex min-h-[20%] w-5/12 border border-zinc-900	 rounded flex-col justify-start items-stretch p-1 m-1">
+        <a href="{{ $burl }}{{ $paginator.Next.URL }}">
+          <strong>Next</strong>
+        </a>
+      </div>
+      
+    {{ end }}
+    {{ end }}{{ end }}
 {{ end }}

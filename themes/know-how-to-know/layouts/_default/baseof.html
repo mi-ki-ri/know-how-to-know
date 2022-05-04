@@ -5,11 +5,53 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
-  <title>{{ .Site.Title }}</title>
+  <title>{{ .Title }}{{ if ne .Title .Site.Title }} &mdash; {{ .Site.Title }}{{ end }}</title>
+  <style>
+      a{
+          text-decoration: underline!important;
+      }
+      a:hover{
+          text-decoration: none!important;
+      }
+  </style>
+</title>
 </head>
 <body>
-  <main>
-    {{ block "main" . }}{{ end }}
-  </main>
+    <div class="bg-slate-100">
+        <header class="mx-auto h-32 text-white bg-gradient-to-br from-slate-800 to-slate-900 flex jusify-center items-center">
+            <h1 class="container mx-auto p-5 text-center">
+                {{ .Title }}{{ if ne .Title .Site.Title }} &mdash; {{ .Site.Title }}{{ end }}
+            </h1>
+        </header>
+        <main class="container mx-auto bg-white p-3 flex jusify-between items-stretch">
+            <section class="p-2 border-r w-2/3">
+                {{ block "main" . }}{{ end }}
+            </section>
+            <section class="p-2 w-1/3">
+                {{ partial "newer.html" . }}
+            </section>
+            
+        </main>
+        <footer class="mx-auto min-h-16 text-white bg-gradient-to-br from-slate-800 to-slate-900 flex jusify-center items-center">
+            <div class="container mx-auto p-5">
+                <address class="text-center p-5">
+                    hotta.tatsuya.fcc@gmail.com
+                </address>
+                <section>
+                    <div class="flex">
+                        <div class="flex-1 p-1">
+                            <h2> タグ </h2>
+                      
+                            {{- range $termName, $entries := .Site.Taxonomies.tags }}
+                            <a href="{{ "/tags/" | relLangURL }}{{ $termName | urlize
+                                    }}">{{ $termName }}</a> ({{ $entries.Count }})
+                                {{- end }}
+                          </div>
+                    </div>
+                </section>
+            </div>
+        </footer>
+    </div>
+    
 </body>
 </html>

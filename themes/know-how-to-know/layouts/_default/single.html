@@ -1,0 +1,26 @@
+{{ define "main" }}
+    <h2 class="font-bold p-3 border-b m-3">
+      {{ .Title }} 記事
+    </h2>
+      <article class="p-3 m-3">
+        <a href="{{ .Permalink }}">
+          <h3 class="font-bold text-xl border-b pb-1 mb-1">
+            {{ .Title }}
+            <span class="font-normal"> 
+              {{ .Date.Format "2006-01-02" }}
+            </span>
+          </h3>
+        </a>
+        <section class="prose">
+          {{ .Content }}
+        </section>
+        <section>
+          タグ: 
+          {{- range $termName := .Params.tags }}
+            <a href="{{ "/tags/" | relLangURL }}{{ $termName | urlize
+                }}">{{ $termName }}</a>
+            {{- end }}
+        </section>
+      </article>
+
+{{ end }}

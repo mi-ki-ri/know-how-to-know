@@ -1,0 +1,17 @@
+<h2 class="font-bold p-3 m-3 border-b">
+  ブログ内最新記事
+</h2>
+<ul>
+  {{ range first 10 (where .Site.RegularPages "Section" "posts").Reverse }}
+  <li class="font-bold p-3">
+    <a href="{{.Permalink}}">
+      
+        {{ .Title }}
+        <span class="font-normal">
+          {{ .Date.Format "2006-01-02" }}
+        </span>
+      
+    </a> 
+  </li>  
+  {{ end }}
+</ul>
