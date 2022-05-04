@@ -1,7 +1,8 @@
-baseURL = 'http://example.org/'
+baseURL = 'https://mi-ki-ri.github.io/know-how-to-know/'
 languageCode = 'en-us'
 title = 'My New Hugo Site'
 theme = 'know-how-to-know'
+hasCJKLanguage = true
 
 [taxonomies]
   tag = "tags"
