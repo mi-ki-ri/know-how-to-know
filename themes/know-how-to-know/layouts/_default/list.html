@@ -3,7 +3,7 @@
       {{ .Title }} 記事
     </h2>
     {{ $burl := .Site.BaseURL }}
-    {{ $paginator := .Paginate (where .RegularPages "Section" "posts").Reverse 5 }}
+    {{ $paginator := .Paginate (where .RegularPages "Section" "posts") 5 }}
     {{ with $paginator }}{{ range $paginator.Pages }}
       <article class="p-3 m-3">
         <a href="{{ .Permalink }}">

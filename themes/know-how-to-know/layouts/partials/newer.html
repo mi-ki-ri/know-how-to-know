@@ -2,7 +2,7 @@
   ブログ内最新記事
 </h2>
 <ul>
-  {{ range first 10 (where .Site.RegularPages "Section" "posts").Reverse }}
+  {{ range first 10 (where .Site.RegularPages "Section" "posts") }}
   <li class="font-bold p-3">
     <a href="{{.Permalink}}">
       
